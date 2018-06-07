@@ -78,4 +78,27 @@ docker run -v "/var/www" debian
 docker run -it -v"/home/fabioalvaro/workspace-fabioalvaro/docker/volumes/hdlindo:/var/www" debian
 
 
-docker run -p 8080:3000 -it -v"/home/fabioalvaro/workspace-fabioalvaro/docker/volumes/hdnode-001:/var/www" node npm start
+docker run -p 8080:3000 -it -v"/home/fabioalvaro/workspace-fabioalvaro/docker/volumes/hdnode-001:/var/www" -w "/var/www" node npm start
+docker run -d -p 8080:3000 -it -v"/home/fabioalvaro/workspace-fabioalvaro/docker/volumes/hdnode-001:/var/www" -w "/var/www" node npm start
+docker run -d -p 8080:3000 -it -v"$(pwd):/var/www" -w "/var/www" node npm start
+
+
+
+CRIAR NOSSAS IMAGENS
+=========================
+docker file = receita de bolo = imagem
+
+Dockerfile
+++
+FROM node
+MAINTAINER Fabio Alvaro
+COPY /home/fabioalvaro/workspace-fabioalvaro/docker/volumes/hdnode-001/ /var/www
+WORKDIR /var/www
+RUN npm install
+ENTRYOINT npm start
+EXPOSE 3000
+++
+
+
+
+
