@@ -77,7 +77,7 @@ docker run -d -p 12345:80 --name meu-site dockersamples/static-site
 
 # passar variavel de ambiente
 
-docker run -d -p 12345:80 -e AUTHOR="Fabio Alvaro" --name meu-site dockersamples/static-site
+docker run -d -p 12345:80 -e AUTHOR="Fabio Alvaro" --name meu-site dockersamples/static
 
 docker ps -q
 
@@ -115,6 +115,85 @@ Dockerfile
     RUN npm install
     ENTRYOINT npm start
     EXPOSE 3000
+
+
+
+
+
+### Aula 05 - Comnicacao entre containers
+============================================
+
+## criar rede no docker
+-------------------------------------------
+docker network create --driver bridge minharede-karen
+
+
+docker network ls
+d4a02b8c39a1        minharede-karen     bridge              local 
+
+
+
+docker run -it --name meu-container-de-debian --network minharede-karen debian
+
+
+docker stop -t 0 $(docker ps -q) && docker container prune
+
+
+## apagar o container
+docker rm -f meu-debian
+
+
+## analisar o container criado
+docker inspect meu-container-de-debian
+
+##criar um segundo container na mesma rede
+docker run --name segundo-debian -it --network minharede-karen debian
+
+#instalar o ping dentro do debian
+apt-get update && apt-get install iputils-ping
+
+
+hostname -i
+
+# baixa uma imagen docker pronta do Docker Hub do Douglas
+-----------------
+docker pull douglasq/alura-books:cap05
+
+
+# baixa a imagem do mongo
+docker pull mongo
+
+
+
+## Criar uma imagem a partir de um docker file 
+docker build -f alura-books.dockerfile -t minhaimagemdaora:latest .
+
+## sobe app node do douglas
+
+docker run -d -p 8080:3000 douglasq/alura-books:cap05
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
