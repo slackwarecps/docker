@@ -1,2 +1,0 @@
-echo "Chegou no inicio";
-

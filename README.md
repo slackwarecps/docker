@@ -172,7 +172,26 @@ docker build -f alura-books.dockerfile -t minhaimagemdaora:latest .
 
 docker run -d -p 8080:3000 douglasq/alura-books:cap05
 
+## Docker File de uma maquina debian com jdk 8
 
+    FROM debian
+    MAINTAINER Fabio Alvaro
+    ADD jdk1.8.0_171 /opt/jdk1.8.0_171
+    RUN apt-get update -y
+    RUN apt-get install sudo -y
+    RUN apt --fix-broken install -y
+    RUN apt-get update -y
+    RUN apt --fix-broken install -y
+    ENV JAVA_HOME=/opt/jdk1.8.0_171
+    ENV PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+
+# Subir para a conta do docker hub
+(Deve estar logadoooooo)
+
+Arquivo sobe.sh
+    TAG=latest
+    docker tag b8581c51c41c fabioalvaro/debianwithoraclejdk8:$TAG
+    docker push fabioalvaro/debianwithoraclejdk8:$TAG
 
 
 
